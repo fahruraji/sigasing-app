@@ -14,7 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <?php include "partials/sidebar.php" ?>
     
     <div class="content-wrapper">
-      <?php include "partials/content.php" ?>
+      <?php include "routes.php" ?>
     </div>
     <?php include "partials/control.php" ?>
     <?php include "partials/footer.php" ?>
