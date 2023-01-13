@@ -40,7 +40,34 @@
                     <th>Nama Lokasi</th>
                     <th>Opsi</th>
                 </tfoot>                
-                <tbody></tbody>                
+                <tbody>
+                    <?php
+                        include_once "database/database.php"; 
+                        $database = new Database();
+                        $db = $database->getConnection();
+
+                        $selectSql = "SELECT * FROM lokasi";
+
+                        $stmt = $db->prepare($selectSql);
+                        $stmt->execute();
+
+                        $no = 1;
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $row['nama_lokasi'] ?></td>
+                        <td>
+                            <a href="?page=lokasiupdate&id=<?= $row['id'] ?>" class="btn btn-primary btn-sm mr-1">
+                                <i class="fa fa-edit"></i> Ubah
+                            </a>
+                            <a href="?page=lokasidelete&id=<?= $row['id'] ?>" class="btn btn-danger btn-sm mr-1" onclick="javascript: return confirm('Konfirmasi data akan dihapus?);">
+                                <i class="fa fa-trash"></i> Hapus
+                            </a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>                
             </table>
         </div>
     </div>
