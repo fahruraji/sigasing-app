@@ -1,7 +1,64 @@
 <?php include_once "partials/cssdatatables.php" ?>
 
+<?php
+if (isset($_POST['button_create'])) {
+   
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $validateSQL = "SELECT * FROM lokasi WHERE nama_lokasi = ?";
+    $stmt = $db->prepare($validateSQL);
+    $stmt->bindParam(1, $_POST['nama_lokasi']);
+    $stmt->execute();
+    if ($stmt->rowCount() > 0) {
+    ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            <h5><i class="icon fas fa-ban"></i> Gagal</h5>
+            Nama Lokasi sama sudah ada
+        </div>
+    <?php    
+    } else {    
+        $insertSQL = "INSERT INTO lokasi SET nama_lokasi = ?";
+        $stmt = $db->prepare($insertSQL);
+        $stmt->bindParam(1, $_POST['nama_lokasi']);
+        if ($stmt->execute()) {
+            $_SESSION['hasil'] = true;
+            $_SESSION['pesan'] = "Berhasil simpan data";
+        } else {
+            $_SESSION['hasil'] = false;
+            $_SESSION['pesan'] = "Gagal simpan data";
+        }
+        echo "<meta http-equiv='refresh' content='0;url=?page=lokasiread'>";
+    }
+}
+?>
+
 <section class="content-header">
     <div class="container-fluid">
+        <?php
+        if (isset($_SESSION["hasil"])) {
+            if ($_SESSION['hasil']) {
+        ?>
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                <h5><i class="icon fas fa-check"></i> Berhasil</h5>
+                <?= $_SESSION["pesan"] ?>
+            </div>
+        <?php
+            } else {
+        ?>
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                <h5><i class="icon fas fa-ban"></i> Gagal</h5>
+                <?= $_SESSION["pesan"] ?>
+            </div>
+        <?php
+            }
+            unset($_SESSION["hasil"]);
+            unset($_SESSION["pesan"]);
+        }
+        ?>
         <div class="row mb2">
             <div class="col-sm-6">
                 <h1>Tambah Data Lokasi</h1>
