@@ -58,11 +58,11 @@ if (isset($_POST['button_create'])) {
                     $insertKaryawanSQL = "INSERT INTO karyawan VALUES (NULL, ?, ?, ?, ?, ?, ?)";
                     $stmtKaryawan = $db->prepare($insertKaryawanSQL);
                     $stmtKaryawan->bindParam(1, $_POST['nik']);
-                    $stmtKaryawan->bindParam(1, $_POST['nama_lengkap']);
-                    $stmtKaryawan->bindParam(1, $_POST['handphone']);
-                    $stmtKaryawan->bindParam(1, $_POST['email']);
-                    $stmtKaryawan->bindParam(1, $_POST['tanggal_masuk']);
-                    $stmtKaryawan->bindParam(1, $pengguna_id);
+                    $stmtKaryawan->bindParam(2, $_POST['nama_lengkap']);
+                    $stmtKaryawan->bindParam(3, $_POST['handphone']);
+                    $stmtKaryawan->bindParam(4, $_POST['email']);
+                    $stmtKaryawan->bindParam(5, $_POST['tanggal_masuk']);
+                    $stmtKaryawan->bindParam(6, $pengguna_id);
 
                     if ($stmtKaryawan->execute()) {
                         $_SESSION['hasil'] = true;
