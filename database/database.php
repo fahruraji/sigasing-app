@@ -11,7 +11,7 @@ class Database
     {
         $this->host     = 'localhost';
         $this->username = 'root';
-        $this->password = '';
+        $this->password = 'rs3l4w9';
         $this->db_name  = 'praktikum_presensi_penggajian';
     }
 
