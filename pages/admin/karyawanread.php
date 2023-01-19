@@ -96,8 +96,22 @@
                     <tr>
                         <td><?= $row['nik'] ?></td>
                         <td><?= $row['nama_lengkap'] ?></td>
-                        <td><?= $row['bagian_terkini'] ?></td>
-                        <td><?= $row['jabatan_terkini'] ?></td>
+                        <td>
+                            <?php
+                                $bagian_terkini = $row['bagian_terkini'] == "" ? "Belum ada" : $row['bagian_terkini'];
+                            ?>
+                            <a href="?page=karyawanbagian&id=<?= $row['id'] ?>" class="btn bg-fuchsia btn-sm mr-1">
+                                <i class="fa fa-building"></i> <?= $bagian_terkini ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?php
+                                $jabatan_terkini = $row['jabatan_terkini'] == "" ? "Belum ada" : $row['jabatan_terkini'];
+                            ?>
+                            <a href="?page=karyawanjabatan&id=<?= $row['id'] ?>" class="btn bg-blue btn-sm mr-1">
+                                <i class="fa fa-building"></i> <?= $jabatan_terkini ?>
+                            </a>
+                        </td>
                         <td>
                             <a href="?page=karyawanupdate&id=<?= $row['id'] ?>" class="btn btn-primary btn-sm mr-1">
                                 <i class="fa fa-edit"></i> Ubah
